@@ -1,0 +1,8 @@
+{
+	"name": "starterKit",
+	"dependencies": {
+		"jquery": "2.1.4",
+		"fastclick": "1.0.6",
+		"svgxuse": "^1.2.4"
+	}
+}

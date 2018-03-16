@@ -1,0 +1,75 @@
+
+// --- FONT ---
+@mixin font{
+    font-family : 'FuturaBkBT', Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+
+@mixin fontLt{
+    font-family : 'FuturaBkBT', Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+
+@mixin fontBd{
+    font-family : 'FuturaBkBT', Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+
+@mixin fontHv{
+    font-family : 'FuturaBkBT', Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+// --- EASING ---
+@mixin easeInOut($time, $propertie: all){
+    -webkit-transition: $propertie $time cubic-bezier(0.4, 0.0, 0.2, 1);
+    -moz-transition: $propertie $time cubic-bezier(0.4, 0.0, 0.2, 1);
+    -o-transition: $propertie $time cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition: $propertie $time cubic-bezier(0.4, 0.0, 0.2, 1);
+
+    -webkit-transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+    -moz-transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+    -o-transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+ @mixin easeInQuint($time, $propertie: all){
+    -webkit-transition: $propertie $time cubic-bezier(0.755, 0.050, 0.855, 0.060); 
+    -moz-transition: $propertie $time cubic-bezier(0.755, 0.050, 0.855, 0.060); 
+    -o-transition: $propertie $time cubic-bezier(0.755, 0.050, 0.855, 0.060); 
+    transition: $propertie $time cubic-bezier(0.755, 0.050, 0.855, 0.060); /* easeInQuint */
+
+    -webkit-transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060); 
+    -moz-transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060); 
+    -o-transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060); 
+    transition-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060); /* easeInQuint */
+}
+
+@mixin easeOut($time, $propertie: all){
+    -webkit-transition: $propertie $time cubic-bezier(0.0, 0.0, 0.2, 1);
+    -moz-transition: $propertie $time cubic-bezier(0.0, 0.0, 0.2, 1);
+    -o-transition: $propertie $time cubic-bezier(0.0, 0.0, 0.2, 1);
+    transition: $propertie $time cubic-bezier(0.0, 0.0, 0.2, 1);
+
+    -webkit-transition-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+    -moz-transition-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+    -o-transition-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+    transition-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+
+@mixin easeIn($time, $propertie: all){
+    -webkit-transition: $propertie $time cubic-bezier(0.4, 0.0, 1, 1);
+    -moz-transition: $propertie $time cubic-bezier(0.4, 0.0, 1, 1);
+    -o-transition: $propertie $time cubic-bezier(0.4, 0.0, 1, 1);
+    transition: $propertie $time cubic-bezier(0.4, 0.0, 1, 1);
+
+    -webkit-transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
+    -moz-transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
+    -o-transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
+    transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
+}

@@ -1,0 +1,47 @@
+// --- TYPOS ---
+// -------------
+	$fontXS	: 10px;
+	$fontS	: 12px;
+	$fontM	: 18px;
+	$fontL	: 24px;
+	$fontXL	: 32px;
+
+
+	h1{
+		font-size: $fontXL;
+		line-height: $fontXL;
+	}
+
+	h2{
+		font-size: $fontL;
+		line-height: $fontL;
+	}
+
+	h3{
+		font-size: $fontM;
+		line-height: $fontM;
+	}
+
+	h4{
+		font-size: 16px;
+		line-height: 16px;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	.small{
+		font-size: $fontXS;
+	}
+// --- /TYPOS ---
+
+
+// SURLIGNEMENT DES TEXTES
+::-moz-selection{background: $black; color:$white;}
+::-moz-selection{background: $black; color:$white;}
+::-webkit-selection{background: $black; color:$white;}
+::selection{background: $black; color:$white;}
+
+
+@import '_mq_texts';

@@ -1,0 +1,37 @@
+*{
+    // Background: ;
+    // Dimensions: px / % / vw / vh;
+    // Position: px / % / vw / vh;
+    // Margins: px / % / vw / vh;
+    // Paddings: px / % / vw / vh;
+    // Borders: px;
+    // Font:;
+    // Font-size:;
+    // color: #;
+    // Text-transform:;
+    // Text-decoration:;
+    // proprietes CSS 3;
+    // Transitions;
+}
+
+
+
+
+// INVIEW
+.inview_stagger,
+.inview_single{
+    opacity: 0;
+    transition: opacity 0.3s;
+
+    &.show{
+        opacity: 1;
+    }
+}
+
+.inview_stagger{
+    @for $i from 1 through 30{
+        &:nth-child(#{$i}) {
+            transition-delay: (0.09s * $i);
+        }
+    }
+}

@@ -1,0 +1,25 @@
+.button{
+	display: inline-block;
+	text-decoration: none;
+
+	&.primary{
+
+		.no-touch &:hover{
+	
+		}
+	}
+
+
+	&.secondary{
+
+		.no-touch &:hover{
+	
+		}
+	}
+
+
+	@each $colorName, $color in $colors {
+		&.#{$colorName} {
+		}
+	}
+}

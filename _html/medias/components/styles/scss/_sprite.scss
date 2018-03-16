@@ -1,0 +1,11 @@
+.icon {
+	fill: $greyDark;
+	overflow: hidden;
+	display: inline-block;
+
+	@each $colorName, $color in $colors {
+		&.#{$colorName} {
+			fill: $color;
+		}
+	}
+}

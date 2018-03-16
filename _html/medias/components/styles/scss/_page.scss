@@ -1,0 +1,9 @@
+#main_container{
+	opacity: 0;
+	min-height: 100vh;
+	transition: opacity 0.25s ease;
+
+	&.loaded{
+        opacity: 1;
+    }
+}

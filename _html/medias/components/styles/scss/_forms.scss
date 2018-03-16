@@ -1,0 +1,193 @@
+.error_form {
+    font-weight: bold;
+    color:$error;
+}
+
+.success_form {
+    font-weight: bold;
+    color:$success;
+}
+
+label{
+    display: inline-block;
+    position: relative;
+    @include ralewayMd;
+    font-size: $fontS + 2;
+    letter-spacing: -0.02em;
+    color: $greyDark;
+}
+
+button[type=submit]{
+    background: none;
+    border: none;
+}
+
+
+input[type="text"],
+input[type="search"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select{
+    background-color: transparent;
+    border: 1px solid #5e5e5e;
+    padding: 6px 10px;
+    @include ralewayMd;
+    font-size: $fontS;
+    color: $white;
+    border-radius: 2px;
+    @include easeInOut(0.2s);
+
+    // SUPPRIME LE FOND JAUNE DE CHROME
+    &:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px $black inset;
+        -webkit-text-fill-color: $white;
+    }
+
+    &.error{
+        border: 1px solid $red!important;
+        color:$red;
+
+        & ~ .message{
+            display: block;
+            color: $red!important;
+        }
+    }
+
+    & ~ .message{
+        display: none;
+    }
+
+    &:focus{
+        border-color: rgba($grey2, 1);
+    }
+}
+
+textarea{
+    height: 154px;
+    resize: none;
+    padding: 5px 10px;
+}
+
+// CUSTOM CHECKBOX
+    input[type=checkbox],
+    input[type=radio]{
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        margin: 0 5px 0 0;
+        opacity: 0;
+        cursor: pointer;
+
+        &:checked + .checkbox,
+        &:checked + .radio{
+            &:before,
+            &:after{
+                opacity: 1;
+                transition-delay: 0s;
+            }
+            &:after{
+                transition-delay: 0.1s;
+            }
+        }
+
+        .msie &{
+            opacity: 1;
+        }
+        .msie.no_touch &:hover{
+            border-color: $black;
+        }
+
+        &.error{
+            & + .checkbox,
+            & + .radio{
+                background: $red;
+            }
+        }
+    }
+
+    .checkbox,
+    .radio{
+        background: transparent;
+        border: 1px solid $white;
+        position: absolute;
+        margin: 1px 0 0 -28px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        pointer-events: none;
+        border-radius: 2px;
+
+        &:before,
+        &:after{
+            content:'';
+            background: $white;
+            width: 4px;
+            height: 12px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            opacity: 0;
+            transform: rotate(45deg) translate(-4px, -5px);
+            transition: opacity 0.15s ease;
+            transition-delay: 0s;
+        }
+        &:before{
+            height: 7px;
+            transform: rotate(-45deg) translate(-1px, -5px);
+            transition-delay: 0.1s;
+        }
+
+
+        .msie &{
+            display: none;
+        }
+    }
+
+    .radio{
+        border-radius: 10px;
+
+        &:before{
+            border-radius: 6px;
+        }
+    }
+
+// CHOSEN SELECT
+    select{
+        background: url(../../../images/icons/single/arrow_down.svg) right 10px center no-repeat $black;
+        padding-right: 30px;
+        cursor: pointer;
+        -webkit-appearance: none;
+
+        &.error{
+            & + .chosen-container{
+                .chosen-single{
+                    border-color: $red;
+                    color: $red!important;
+                }
+            }
+        }
+
+        option{
+            background: $grey;
+            //padding: 10px;
+            padding: 1px 10px;
+            color: $greyDark;
+            border: none;
+        }
+    }
+
+
+// COULEUR PLACEHOLDER
+    ::-webkit-input-placeholder { color: $white; opacity: 1!important; }
+    :-moz-placeholder { color: $white; opacity: 1;}
+    ::-moz-placeholder {color: $white; opacity: 1;}
+    :-ms-input-placeholder {color: $white;}
+
+    .error::-webkit-input-placeholder { color: $red; opacity: 1!important; }
+    .error:-moz-placeholder { color: $red; opacity: 1;}
+    .error::-moz-placeholder {color: $red; opacity: 1;}
+    .error:-ms-input-placeholder {color: $red;}

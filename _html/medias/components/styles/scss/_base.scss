@@ -1,0 +1,23 @@
+html, body{
+	@include font;
+    font-size: $fontS;
+	line-height: 1.2;
+    color: $grey3;
+	-webkit-font-smoothing: antialiased;
+  	font-smoothing: antialiased;
+  	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+
+body{
+	background: $greyLight;
+	width: 100%;
+	overflow-x: hidden!important;
+
+	&.fixed{
+		height: 100vh;
+		overflow: hidden;
+	}
+}
+
+@import "_mq_base";
