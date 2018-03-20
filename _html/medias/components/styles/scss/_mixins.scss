@@ -25,6 +25,29 @@
 }
 
 
+// --- STAGGER TRANSITION ---
+@mixin stagger($time){
+    @for $i from 1 through 30{
+        &:nth-child(#{$i}) {
+            transition-delay: ($time * $i);
+        }
+    }
+}
+
+
+// --- CLEARFIX ---
+@mixin clearfix{
+    &:before,
+    &:after{
+        content:"";
+        display:table;
+    }
+    &:after{
+        clear: both;
+    }
+}
+
+
 // --- EASING ---
 @mixin easeInOut($time, $propertie: all){
     -webkit-transition: $propertie $time cubic-bezier(0.4, 0.0, 0.2, 1);

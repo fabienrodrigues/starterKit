@@ -18,20 +18,18 @@
 
 
 // INVIEW
-.inview_stagger,
-.inview_single{
+.inview-stagger,
+.inview-single,
+.stagger{
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.4s;
 
     &.show{
         opacity: 1;
     }
 }
 
-.inview_stagger{
-    @for $i from 1 through 30{
-        &:nth-child(#{$i}) {
-            transition-delay: (0.09s * $i);
-        }
-    }
+.inview-stagger,
+.stagger{
+    @include stagger(0.09s);
 }
