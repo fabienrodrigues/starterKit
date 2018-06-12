@@ -33,6 +33,7 @@ function getDeviceKind() {
 
 function getDeviceModel() {
     var deviceModel = [];
+    var is_safari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
     if (navigator.userAgent.match(/iphone|ipod|ipad/i))             deviceModel.push('isIOS');
     if (navigator.userAgent.match(/Android/i))                      deviceModel.push('isAndroid');
@@ -41,6 +42,7 @@ function getDeviceModel() {
     if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1)  deviceModel.push('isFirefox');
     if (window.chrome)                                              deviceModel.push('isChrome');
     if (navigator.userAgent.match(/Android/i) && window.chrome)     deviceModel.push('isAndroid');
+    if (is_safari)                                                  deviceModel.push('isSafari');
 
     return deviceModel;
 }

@@ -17,10 +17,6 @@
 	p.openPopup = function(){
 		var self = this;
 
-		if(self._popupStatus === 'closed') {
-			self.closePopup('direct');
-		}
-
 		// RECUPERE LE SCROLLTOP AVANT DE FIXER LA FENETRE
 		self._scrollTop = $(window).scrollTop();
 
@@ -33,44 +29,19 @@
 
 	p._callbackOpenPopup = function() {
 		var self = this;
+		var $popupContainer = $('#popup-container');
 
-		$('#'+self._popupName).show();
+		$('#' + self._popupName).appendTo($popupContainer).show();
 
 		self._popupStatus = 'open';
 
-		var $popupContainer = $('#popup-container');
 		var heightContainer = $popupContainer.outerHeight();
 
 		if(heightContainer % 2 != 0) {
 			$popupContainer.css('height', heightContainer + 1);
 		}
 
-		$('#popup').on('click', '.popup_close', { self:self }, self._onClickPopupClose);
-	};
-
-
-	p.closePopup = function(type) {
-		type = type || 'fade';
-		var self = this;
-
-		$('#'+self._popupName).hide();
-
-
-		$('body').removeClass('fixed');
-		$('html, body').animate({'scrollTop': self._scrollTop + 'px'}, 100);
-
-		if (type === 'fade') {
-
-			$('#popup').fadeOut('fast', self._callbackClosePopup.bind(this));
-
-		} else {
-
-			self._popupStatus = 'closed';
-
-			$('#popup').hide();
-			$('#popup').off('click', '.popup_close', self._onClickPopupClose);
-
-		}
+		$('#popup').on('click', '.popup-close, .popup-filter', { self:self }, self._onClickPopupClose);
 	};
 
 
@@ -78,14 +49,31 @@
 		e.preventDefault();
 
 		var self = e.data.self;
-		self.closePopup('fade');
+		self.closePopup();
+	};
+
+
+	p.closePopup = function() {
+		var self = this;
+
+		if(functionToPlayInClose) {
+			functionToPlayInClose();
+		}
+
+		$('#' + self._popupName).hide().appendTo('body');
+
+
+		$('body').removeClass('fixed');
+		$('html, body').animate({'scrollTop': self._scrollTop + 'px'}, 10);
+
+		$('#popup').fadeOut('fast', self._callbackClosePopup.bind(this));
 	};
 
 
 	p._callbackClosePopup = function() {
 		self._popupStatus = 'closed';
 
-		$('#popup').off('click', '.popup_close', self._onClickPopupClose);
+		$('#popup').off('click', '.popup-close', self._onClickPopupClose);
 	};
 	
 

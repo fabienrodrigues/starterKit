@@ -7,18 +7,27 @@ if (!Array.isArray(window.pageResize)) {
 	window.pageResize = [];
 }
 
+if (!Array.isArray(window.pageScroll)) {
+    window.pageScroll = [];
+}
+
+if (!Array.isArray(window.cbUnveilImgLoaded)) {
+    window.cbUnveilImgLoaded = [];
+}
+var dragging = false;
+
 
 // ----------------------------------- DOCUMENT READY -----------------------------------
 // --------------------------------------------------------------------------------------
 $(document).ready(function () {
-	// --- INIT FUNCTIONS ---
+    // --- INIT FUNCTIONS ---
+    FastClick.attach(document.body);
 
 	// CHECK DEVICE
-	checkDevice();
-
-
-	// RESET SCROLLTOP
-	resetScroll();
+    checkDevice();
+    
+    // LAZY LOAD IMGS
+    $("img").unveil(0, callbackUnveil);
 
 
     // --- ACTIONS ---
@@ -26,8 +35,6 @@ $(document).ready(function () {
 
 
     // SWITCH MENU MOBILE
-    var dragging = false;
-
     $("body").on("touchmove", function() {
         dragging = true;
     });
@@ -38,7 +45,7 @@ $(document).ready(function () {
     });
 
 
-    $('#header .navbar_toggle, #header .filter').on('touchend, click', function(e) {
+    $('#header .navbar-toggle, #header .filter').on('touchend, click', function(e) {
         if(dragging) return;
 
         switchMenu();
@@ -47,14 +54,19 @@ $(document).ready(function () {
     });
 
 
-    $('.bt_open_popup').on('click', function(e) {
-        var popupType = $(this).data('popup');
-        var popup = new popupClass(popupType);
+    $('.open-popup').on('click', function(e) {
+        var popupName = $(this).data('popup');
+        var popup = new popupClass(popupName);
 
         popup.openPopup();
 
         e.preventDefault();
     });
+});
+
+
+$(window).load(function() {
+    $('body').addClass('loaded');
 });
 
 
@@ -90,6 +102,8 @@ function resizeend() {
     } else {
 
         timeout = false;
+
+        checkDevice();
         
         try {
 			for (var i in window.pageResize) {
@@ -102,10 +116,16 @@ function resizeend() {
 }
 
 
-// RESET SCROLLTOP
-function resetScroll() {
-	$('html, body').scrollTop(0);
-}
+function windowScrollFn() {
+    var windowScroll = $(window).scrollTop();
+
+    try {
+        for (var i in window.pageScroll) {
+            window.pageScroll[i]();
+        }
+    }
+    catch(e) {}
+};
 
 
 // ELEMENTS INVIEW
