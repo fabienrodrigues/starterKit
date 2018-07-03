@@ -1,77 +1,77 @@
 /* --- HEADER --- */
-	#header{
+#header{
 		
-		// OPEN CLOSE MENU MOBILE
-		.navbar_toggle{
-			background: none;
-			width: 24px;
-			height: 20px;
-			border: 0;
-			margin: 0;
-			padding: 0;
-			display: none;
+	// OPEN CLOSE MENU MOBILE
+	.navbar-toggle{
+		background: none;
+		width: 24px;
+		height: 20px;
+		border: 0;
+		margin: 0;
+		padding: 0;
+		display: none;
+		position: absolute;
+		top: 19px;
+		right: 20px;
+		z-index: 110;
+		@include easeInOut(0.2s);
+
+		.icon-bar{
+			background: $black;
+			display: block;
+			width: 100%;
+			height: 4px;
 			position: absolute;
-			top: 19px;
-			right: 20px;
-			z-index: 110;
+			margin: 0;
 			@include easeInOut(0.2s);
 
-			.icon_bar{
-				background: $grey2;
-				display: block;
-				width: 100%;
-				height: 4px;
-				position: absolute;
-				margin: 0;
-				@include easeInOut(0.2s);
+			&:first-child{
+				top: 0px;
+				transform-origin: left top;
+			}
 
+			&:nth-child(2){
+				top: 8px;
+			}
+
+			&:last-child{
+				bottom: 0px;
+				transform-origin: left bottom;
+			}
+		}
+
+		&:focus{
+			outline: none;
+			border: 0;
+		}
+
+		&.open{
+			transform: rotate(180deg);
+
+			.icon-bar{
 				&:first-child{
-					top: 0px;
-					transform-origin: left top;
+					transform: rotate(45deg) translate(4px, -3px);
 				}
-
 				&:nth-child(2){
-					top: 8px;
+					opacity: 0;
 				}
 
 				&:last-child{
-					bottom: 0px;
-					transform-origin: left bottom;
+					transform: rotate(-45deg) translate(3px, 4px);
 				}
 			}
-
-			&:focus{
-				outline: none;
-				border: 0;
-			}
-
-			&.open{
-				transform: rotate(180deg);
-
-				.icon_bar{
-					&:first-child{
-						transform: rotate(45deg) translate(4px, -3px);
-					}
-					&:nth-child(2){
-						opacity: 0;
-					}
-
-					&:last-child{
-						transform: rotate(-45deg) translate(3px, 4px);
-					}
-				}
-			}
-		}
-
-
-		.filter{
-			background: rgba(0,0,0,0.5);
-			position: fixed;
-			top: $headerHeight;
-			left: 0;
-			bottom: 0;
-			width: 50%;
-			display: none;
 		}
 	}
+
+
+	.filter{
+		background: rgba(0,0,0,0.5);
+		position: fixed;
+		top: $headerHeight;
+		left: 0;
+		bottom: 0;
+		width: 50%;
+		display: none;
+	}
+}
 /* --- /HEADER --- */

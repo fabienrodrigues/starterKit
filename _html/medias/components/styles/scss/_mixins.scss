@@ -1,27 +1,23 @@
 
 // --- FONT ---
 @mixin font{
-    font-family : 'FuturaBkBT', Arial, Helvetica, sans-serif;
-    font-weight: normal;
-    font-style: normal;
-}
-
-@mixin fontLt{
-    font-family : 'FuturaBkBT', Arial, Helvetica, sans-serif;
+    font-family : 'Myriad', Arial, Helvetica, sans-serif;
     font-weight: normal;
     font-style: normal;
 }
 
 @mixin fontBd{
-    font-family : 'FuturaBkBT', Arial, Helvetica, sans-serif;
+    font-family : 'Myriad-bold', Arial, Helvetica, sans-serif;
     font-weight: normal;
     font-style: normal;
 }
 
-@mixin fontHv{
-    font-family : 'FuturaBkBT', Arial, Helvetica, sans-serif;
-    font-weight: normal;
-    font-style: normal;
+
+@mixin absoluteCenter{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
 }
 
 
@@ -49,6 +45,18 @@
 
 
 // --- EASING ---
+@mixin easeInOutCirc($time, $propertie: all){
+    -webkit-transition: $propertie $time cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    -moz-transition: $propertie $time cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    -o-transition: $propertie $time cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    transition: $propertie $time cubic-bezier(0.785, 0.135, 0.150, 0.860); /* easeInOutCirc */
+
+    -webkit-transition-timing-function: cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    -moz-transition-timing-function: cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    -o-transition-timing-function: cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    transition-timing-function: cubic-bezier(0.785, 0.135, 0.150, 0.860); /* easeInOutCirc */
+}
+
 @mixin easeInOut($time, $propertie: all){
     -webkit-transition: $propertie $time cubic-bezier(0.4, 0.0, 0.2, 1);
     -moz-transition: $propertie $time cubic-bezier(0.4, 0.0, 0.2, 1);

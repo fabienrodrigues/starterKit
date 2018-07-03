@@ -11,7 +11,7 @@
 label{
     display: inline-block;
     position: relative;
-    @include ralewayMd;
+    @include font;
     font-size: $fontS + 2;
     letter-spacing: -0.02em;
     color: $greyDark;
@@ -33,7 +33,7 @@ select{
     background-color: transparent;
     border: 1px solid #5e5e5e;
     padding: 6px 10px;
-    @include ralewayMd;
+    @include font;
     font-size: $fontS;
     color: $white;
     border-radius: 2px;
@@ -46,12 +46,12 @@ select{
     }
 
     &.error{
-        border: 1px solid $red!important;
-        color:$red;
+        border: 1px solid $error!important;
+        color:$error;
 
         & ~ .message{
             display: block;
-            color: $red!important;
+            color: $error!important;
         }
     }
 
@@ -104,7 +104,7 @@ textarea{
         &.error{
             & + .checkbox,
             & + .radio{
-                background: $red;
+                background: $error;
             }
         }
     }
@@ -165,8 +165,8 @@ textarea{
         &.error{
             & + .chosen-container{
                 .chosen-single{
-                    border-color: $red;
-                    color: $red!important;
+                    border-color: $error;
+                    color: $error!important;
                 }
             }
         }
@@ -187,7 +187,7 @@ textarea{
     ::-moz-placeholder {color: $white; opacity: 1;}
     :-ms-input-placeholder {color: $white;}
 
-    .error::-webkit-input-placeholder { color: $red; opacity: 1!important; }
-    .error:-moz-placeholder { color: $red; opacity: 1;}
-    .error::-moz-placeholder {color: $red; opacity: 1;}
-    .error:-ms-input-placeholder {color: $red;}
+    .error::-webkit-input-placeholder { color: $error; opacity: 1!important; }
+    .error:-moz-placeholder { color: $error; opacity: 1;}
+    .error::-moz-placeholder {color: $error; opacity: 1;}
+    .error:-ms-input-placeholder {color: $error;}

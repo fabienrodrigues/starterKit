@@ -1,38 +1,18 @@
 // GRILLE LG
-	@media screen and (min-width: $screen-lg-min) {
-	}
+@media screen and (min-width: $screen-lg-min) {
+}
 
 
 // GRILLE MD
-	@media screen and (min-width: $screen-md-min) and (max-width:$screen-md-max) {
-	}
+@media screen and (min-width: $screen-md-min) and (max-width:$screen-md-max) {
+}
 
 
 // GRILLE SM
-	@media screen and (min-width: $screen-sm-min) and (max-width:$screen-sm-max) {
-		#header{
-			.navbar_toggle{
-				display: block;
-			}
-		}
-	}
-
-
-// GRILLE ENTRE XS ET SM (landscape phone)
-	@media screen and (min-width: ($screen-xs + 1)) and (max-width: ($screen-sm-min - 1)) {
-		#header{
-			.navbar_toggle{
-				display: block;
-			}
-		}
-	}
+@media screen and (max-width:$screen-sm-max) {
+}
 
 
 // GRILLE XS
-	@media screen and (max-width: $screen-xs){
-		#header{
-			.navbar_toggle{
-				display: block;
-			}
-		}
-	}
+@media screen and (max-width: $screen-xs-max){
+}
