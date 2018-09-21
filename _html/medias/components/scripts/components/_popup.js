@@ -6,6 +6,7 @@
 	}
 
 	var p = popupClass.prototype;
+	var body = document.getElementsByTagName('BODY')[0];
 
 	p._initialize = function(popupName) {
 		this._popupStatus = 'closed';
@@ -21,7 +22,7 @@
 		self._scrollTop = $(window).scrollTop();
 
 		// FIXE LA FENETRE POUR LAISSER QUE LE SCROLL DE LA POPUP
-		$('body').addClass('fixed');
+    	body.classList.add('fixed');
 
 		$('#popup').fadeIn('fast', self._callbackOpenPopup.bind(this));
 	};
@@ -63,7 +64,8 @@
 		$('#' + self._popupName).hide().appendTo('body');
 
 
-		$('body').removeClass('fixed');
+		//$('body').removeClass('fixed');
+		body.classList.remove('fixed');
 		$('html, body').animate({'scrollTop': self._scrollTop + 'px'}, 10);
 
 		$('#popup').fadeOut('fast', self._callbackClosePopup.bind(this));

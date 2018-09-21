@@ -16,26 +16,6 @@ var switchMenu = function () {
 };
 
 
-var whichTransitionEvent = function () {
-	var t;
-	var el = document.createElement("fakeelement");
-
-	var transitions = {
-		"transition": "transitionend",
-		"OTransition": "oTransitionEnd",
-		"MozTransition": "transitionend",
-		"WebkitTransition": "webkitTransitionEnd"
-	}
-
-	for (t in transitions) {
-
-		if (el.style[t] !== undefined) return transitions[t];
-
-	}
-}
-
-var transitionEvent = whichTransitionEvent();
-
 var openMenu = function () {
 	$('.navbar_toggle, #container_menu').addClass('open');
 
@@ -51,7 +31,7 @@ var openMenu = function () {
 };
 
 
-var closeMenu = function (firstCall) {
+var closeMenu = function () {
 	$('#header .filter').hide();
 	$('.navbar_toggle, #container_menu').removeClass('open');
 

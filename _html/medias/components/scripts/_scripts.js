@@ -10,9 +10,6 @@ if (!Array.isArray(window.pageScroll)) {
     window.pageScroll = [];
 }
 
-if (!Array.isArray(window.cbUnveilImgLoaded)) {
-    window.cbUnveilImgLoaded = [];
-}
 var dragging = false;
 
 
@@ -24,13 +21,20 @@ $(document).ready(function () {
 
 	// CHECK DEVICE
     checkDevice();
-    
-    // LAZY LOAD IMGS
-    $("img").unveil(0, callbackUnveil);
 
 
     // --- ACTIONS ---
-    $(window).on('resize', windowResize);
+
+    // ON RESIZE
+    window.onresize = windowResize;
+
+
+    // ON SCROLL
+    $(window).on('scroll', function() {
+        var windowScroll = $(window).scrollTop();
+
+        windowScrollFn(windowScroll);
+    });
 
 
     // SWITCH MENU MOBILE
@@ -53,6 +57,7 @@ $(document).ready(function () {
     });
 
 
+    // CLICK TO OPEN POPUP
     $('.open-popup').on('click', function(e) {
         var popupName = $(this).data('popup');
         var popup = new popupClass(popupName);
@@ -65,7 +70,8 @@ $(document).ready(function () {
 
 
 $(window).load(function() {
-    $('body').addClass('loaded');
+    var body = document.getElementsByTagName('BODY')[0];
+    body.classList.add('loaded');
 });
 
 
@@ -87,7 +93,7 @@ function windowResize() {
     }
 
 
-	if(window.checkDevice() != 'isMobile') {
+	if(getDeviceKind() !== 'isMobile') {
 		closeMenu(true);
 	}
 }
@@ -115,19 +121,13 @@ function resizeend() {
 }
 
 
-function windowScrollFn() {
+function windowScrollFn(windowScroll) {
     var windowScroll = $(window).scrollTop();
 
     try {
         for (var i in window.pageScroll) {
-            window.pageScroll[i]();
+            window.pageScroll[i](windowScroll);
         }
     }
     catch(e) {}
 };
-
-
-// ELEMENTS INVIEW
-function showInview(e) {
-	if(!$(e).hasClass('show')) 	$(e).addClass('show');
-}

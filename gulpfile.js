@@ -15,7 +15,8 @@ var watch        = require('gulp-watch');
 var svgSprite    = require('gulp-svg-sprite');
 var sourcemaps   = require('gulp-sourcemaps');
 var include      = require("gulp-include");
-var util         = require('gulp-util');
+var minimist     = require('minimist');
+var gulpif       = require('gulp-if');
 var stripDebug   = require('gulp-strip-debug');
 var path = null;
 
@@ -25,18 +26,14 @@ var path = null;
 |--------------------------------------------------------------------------
 */
 
-var config = {
-    production: !!util.env.production,
-    wordpress: !!util.env.wordpress
+var knownOptions = {
+    string: 'env',
+    default: { env: process.env.NODE_ENV || 'production' }
 };
 
+var options = minimist(process.argv.slice(2), knownOptions);
 
-if(config.wordpress) {
-    path = './wordpress/wp-content/themes/NOMDUTHEME/medias/';
-    //config.production = true;
-} else {
-    path = './integration/_html/medias/'
-}
+var path = './PATHTOPROJECT';
 
 
 function swallowError(error) {
@@ -59,33 +56,26 @@ gulp.task('compress-js', function()
     console.log('path = ', path, config.production);
 
     // Components
-    gulp.src([
-        path + '/components/scripts/**/*.js',
-        '!' + path + '/components/scripts/min/components.min.js',
-        '!' + path + '/components/scripts/components.extended.js'
-    ])
+    gulp.src(path + '/medias/components/scripts/main.js')
     .pipe(include()).on('error', console.log)
-    .pipe(config.production ? stripDebug() : util.noop())
-    .pipe(!config.production ? sourcemaps.init() : util.noop())
-    .pipe(concat('components.extended.js'))
-    .pipe(gulp.dest(path + '/components/scripts/'))
-    .pipe(concat('components.min.js'))
-    .pipe(uglify().on('error', swallowError))
-    .pipe(!config.production ? sourcemaps.write() : util.noop())
-    .pipe(gulp.dest(path + '/components/scripts/min/'));
+    .pipe(gulpif(options.env === 'production', stripDebug()))
+    .pipe(gulpif(options.env !== 'production', sourcemaps.init()))
+    .pipe(uglify({output : {comments: 'some'}, compress: { hoist_funs: false }}).on('error', swallowError))
+    .pipe(gulpif(options.env !== 'production', sourcemaps.write()))
+    .pipe(gulp.dest(path + '/medias/components/scripts/min/'));
 
     // Pages
     gulp.src([
-        path + '/pages/scripts/**/*.js',
-        '!' + path + '/pages/scripts/min/**/*.js'
+        path + '/medias/pages/scripts/**/*.js',
+        '!' + path + '/medias/pages/scripts/min/**/*.js',
     ])
     .pipe(include()).on('error', console.log)
-    .pipe(config.production ? stripDebug() : util.noop())
-    .pipe(!config.production ? sourcemaps.init() : util.noop())
+    .pipe(gulpif(options.env === 'production', stripDebug()))
+    .pipe(gulpif(options.env !== 'production', sourcemaps.init()))
     .pipe(rename({suffix: '.min'}))
-    .pipe(uglify().on('error', swallowError))
-    .pipe(!config.production ? sourcemaps.write() : util.noop())
-    .pipe(gulp.dest(path + '/pages/scripts/min/'));
+    .pipe(uglify({output : {comments: 'some'}, compress: { hoist_funs: false }}).on('error', swallowError))
+    .pipe(gulpif(options.env !== 'production', sourcemaps.write()))
+    .pipe(gulp.dest(path + '/medias/pages/scripts/min/'));
 });
 
 /**
@@ -94,22 +84,22 @@ gulp.task('compress-js', function()
 gulp.task('compress-css', function()
 {
     // Components
-    gulp.src([path + '/components/styles/scss/**/!(_)*.scss'])
-    .pipe(!config.production ? sourcemaps.init() : util.noop())
+    gulp.src([path + '/style.scss'])
+    .pipe(gulpif(options.env !== 'production', sourcemaps.init()))
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(autoprefixer('last 6 versions'))
-    .pipe(concat('components.min.css'))
-    .pipe(!config.production ? sourcemaps.write() : util.noop())
-    .pipe(gulp.dest(path + '/components/styles/css/'));
+    .pipe(concat('style.css'))
+    .pipe(gulpif(options.env !== 'production', sourcemaps.write()))
+    .pipe(gulp.dest(path));
 
     // Pages
-    gulp.src([path + '/pages/styles/scss/**/!(_)*.scss'])
-    .pipe(!config.production ? sourcemaps.init() : util.noop())
+    gulp.src([path + '/medias/pages/styles/scss/**/!(_)*.scss'])
+    .pipe(gulpif(options.env !== 'production', sourcemaps.init()))
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(autoprefixer('last 6 versions'))
     .pipe(rename({suffix: '.min'}))
-    .pipe(!config.production ? sourcemaps.write() : util.noop())
-    .pipe(gulp.dest(path + '/pages/styles/css/'));
+    .pipe(gulpif(options.env !== 'production', sourcemaps.write()))
+    .pipe(gulp.dest(path + '/medias/pages/styles/css/'));
 });
 
 /**
@@ -159,7 +149,7 @@ gulp.task('watch', function ()
  */
 gulp.task('sprite', function ()
 {
-    var pathIcons = path + '/components/';
+    var pathIcons = path + '/medias/components/';
     var svgConfig = {
         svg: {
             namespaceClassnames: false
