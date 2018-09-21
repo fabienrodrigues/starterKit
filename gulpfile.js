@@ -53,7 +53,7 @@ function swallowError(error) {
  */
 gulp.task('compress-js', function()
 {
-    console.log('path = ', path, config.production);
+    console.log('path = ', path, options.env);
 
     // Components
     gulp.src(path + '/medias/components/scripts/main.js')
