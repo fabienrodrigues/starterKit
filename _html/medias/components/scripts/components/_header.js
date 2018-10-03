@@ -2,7 +2,7 @@
 // --- MENU ---
 // SWITCH MENU MOBILE
 var switchMenu = function () {
-	if ($('#container_menu').hasClass('open')) {
+	if ($('#header').hasClass('open')) {
 		
 		closeMenu(false);
 
