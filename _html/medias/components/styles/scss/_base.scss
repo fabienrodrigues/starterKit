@@ -2,7 +2,7 @@ html, body{
 	@include font;
     font-size: $fontS;
 	line-height: 1.2;
-    color: $grey3;
+    color: $black;
 	-webkit-font-smoothing: antialiased;
   	font-smoothing: antialiased;
   	-webkit-text-size-adjust: 100%;
@@ -10,7 +10,6 @@ html, body{
 }
 
 body{
-	background: $greyLight;
 	width: 100%;
 	overflow-x: hidden!important;
 

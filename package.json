@@ -15,6 +15,7 @@
 		"gulp-uglify": "^3.0.0",
 		"gulp-watch": "^5.0.0",
 		"jshint": "^2.9.5",
-		"minimist": "^1.2.0"
+		"minimist": "^1.2.0",
+		"favicons": "5.2.0"
 	}
 }

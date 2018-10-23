@@ -2,14 +2,6 @@
 //=require ./components/_header.js
 //=require ./components/_popup.js
 
-if (!Array.isArray(window.pageResize)) {
-	window.pageResize = [];
-}
-
-if (!Array.isArray(window.pageScroll)) {
-    window.pageScroll = [];
-}
-
 var dragging = false;
 
 
@@ -27,6 +19,7 @@ $(document).ready(function () {
 
     // ON RESIZE
     window.onresize = windowResize;
+    window.addEventListener('orientationchange', windowResize);
 
 
     // ON SCROLL
@@ -58,7 +51,7 @@ $(document).ready(function () {
 
 
     // CLICK TO OPEN POPUP
-    $('.open-popup').on('click', function(e) {
+    $('#container').on('click', '.open-popup', function(e) {
         var popupName = $(this).data('popup');
         var popup = new popupClass(popupName);
 
@@ -70,64 +63,10 @@ $(document).ready(function () {
 
 
 $(window).load(function() {
-    var body = document.getElementsByTagName('BODY')[0];
-    body.classList.add('loaded');
+    document.body.classList.add('loaded');
 });
 
 
 
 // ----------------------------------- FUNCTIONS ----------------------------------------
 // --------------------------------------------------------------------------------------
-
-// --- WINDOW RESIZE ---
-var rtime;
-var timeout = false;
-var delta = 100;
-
-function windowResize() {
-	rtime = new Date();
-
-    if (timeout === false) {
-        timeout = true;
-        setTimeout(resizeend, delta);
-    }
-
-
-	if(getDeviceKind() !== 'isMobile') {
-		closeMenu(true);
-	}
-}
-
-
-function resizeend() {
-    if (new Date() - rtime < delta) {
-
-        setTimeout(resizeend, delta);
-
-    } else {
-
-        timeout = false;
-
-        checkDevice();
-        
-        try {
-			for (var i in window.pageResize) {
-				window.pageResize[i]();
-			}
-		}
-		catch(e) {}
-
-    }               
-}
-
-
-function windowScrollFn(windowScroll) {
-    var windowScroll = $(window).scrollTop();
-
-    try {
-        for (var i in window.pageScroll) {
-            window.pageScroll[i](windowScroll);
-        }
-    }
-    catch(e) {}
-};

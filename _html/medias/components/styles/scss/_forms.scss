@@ -1,9 +1,9 @@
-.error_form {
+.error {
     font-weight: bold;
     color:$error;
 }
 
-.success_form {
+.success {
     font-weight: bold;
     color:$success;
 }
@@ -14,7 +14,6 @@ label{
     @include font;
     font-size: $fontS + 2;
     letter-spacing: -0.02em;
-    color: $greyDark;
 }
 
 button[type=submit]{
@@ -31,11 +30,10 @@ input[type="tel"],
 textarea,
 select{
     background-color: transparent;
-    border: 1px solid #5e5e5e;
+    border: 1px solid $black;
     padding: 6px 10px;
-    @include font;
     font-size: $fontS;
-    color: $white;
+    color: $black;
     border-radius: 2px;
     @include easeInOut(0.2s);
 
@@ -60,7 +58,7 @@ select{
     }
 
     &:focus{
-        border-color: rgba($grey2, 1);
+        border-color: rgba($grey, 1);
     }
 }
 
@@ -112,7 +110,7 @@ textarea{
     .checkbox,
     .radio{
         background: transparent;
-        border: 1px solid $white;
+        border: 1px solid $black;
         position: absolute;
         margin: 1px 0 0 -28px;
         width: 20px;
@@ -124,7 +122,7 @@ textarea{
         &:before,
         &:after{
             content:'';
-            background: $white;
+            background: $black;
             width: 4px;
             height: 12px;
             position: absolute;
@@ -157,7 +155,7 @@ textarea{
 
 // CHOSEN SELECT
     select{
-        background: url(../../../images/icons/single/arrow_down.svg) right 10px center no-repeat $black;
+        background: url(../../../images/icons/single/arrow_down.svg) right 10px center no-repeat $white;
         padding-right: 30px;
         cursor: pointer;
         -webkit-appearance: none;
@@ -172,20 +170,20 @@ textarea{
         }
 
         option{
-            background: $grey;
+            background: $white;
             //padding: 10px;
             padding: 1px 10px;
-            color: $greyDark;
+            color: $black;
             border: none;
         }
     }
 
 
 // COULEUR PLACEHOLDER
-    ::-webkit-input-placeholder { color: $white; opacity: 1!important; }
-    :-moz-placeholder { color: $white; opacity: 1;}
-    ::-moz-placeholder {color: $white; opacity: 1;}
-    :-ms-input-placeholder {color: $white;}
+    ::-webkit-input-placeholder { color: $black; opacity: 0.8!important; }
+    :-moz-placeholder { color: $black; opacity: 0.8;}
+    ::-moz-placeholder {color: $black; opacity: 0.8;}
+    :-ms-input-placeholder {color: $black;}
 
     .error::-webkit-input-placeholder { color: $error; opacity: 1!important; }
     .error:-moz-placeholder { color: $error; opacity: 1;}

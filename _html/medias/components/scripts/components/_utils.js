@@ -1,20 +1,21 @@
 
+//CHECK DEVICE AND SET A CLASS TO THE BODY
 function checkDevice() {
-    var $body = $('body');
-    //CHECK DEVICE AND SET A CLASS TO THE BODY
-    $body.removeClass('isMobile isTablet isDesktop isApple isAndroid isWindowsPhone isBlackberry no-touch');
+    var body = document.body;
 
-    var deviceModel = getDeviceModel();
-    var deviceKind  = getDeviceKind();
+    body.classList.remove('isMobile', 'isTablet', 'isDesktop', 'isApple', 'isAndroid', 'isWindowsPhone', 'isBlackberry', 'no-touch');
+
+    var deviceModel = window.getDeviceModel();
+    var deviceKind  = window.getDeviceKind();
 
     for(var i in deviceModel) {
-        $body.addClass(deviceModel[i]);
+        body.classList.add(deviceModel[i]);
     }
 
-    $body.addClass(deviceKind);
+    body.classList.add(deviceKind);
 
-    if(!isTouchDevice() && !$body.hasClass('isAndroid') && !$body.hasClass('isIOS')) {
-        $body.addClass('no-touch');
+    if(!isTouchDevice() && !hasClass(body, 'isAndroid') && !hasClass(body, 'isIOS')) {
+        body.classList.add('no-touch');
     }
 };
 
@@ -45,7 +46,7 @@ function getDeviceModel() {
     if (is_safari)                                                  deviceModel.push('isSafari');
 
     return deviceModel;
-}
+};
 
 
 function isTouchDevice() {
@@ -68,4 +69,99 @@ function widthDevice() {
 
 function heightDevice() {
     return (window.innerHeight > 0) ? window.innerHeight : screen.height;
+};
+
+
+function hasClass( target, className ) {
+    return new RegExp('(\\s|^)' + className + '(\\s|$)').test(target.className);
+};
+
+
+
+
+// --- WINDOW RESIZE ---
+if (!Array.isArray(window.pageResize)) {
+    window.pageResize = [];
+}
+
+var delay = 100;
+var throttled = false; // are we currently throttled?
+var calls = 0;
+
+function windowResize() {
+    if (!throttled) {
+        // actual callback actions
+        checkDevice();
+        
+        try {
+			for (var i in window.pageResize) {
+				window.pageResize[i]();
+			}
+		}
+        catch(e) {}
+        
+
+        // we're throttled!
+        throttled = true;
+        // set a timeout to un-throttle
+        setTimeout(function () {
+            throttled = false;
+        }, delay);
+    }
+}
+
+/* 
+var rtime;
+var timeout = false;
+var delta = 60;
+function windowResize() {
+	rtime = new Date();
+
+    if (timeout === false) {
+        timeout = true;
+        setTimeout(resizeend, delta);
+    }
+
+
+	if(getDeviceKind() !== 'isMobile') {
+		closeMenu(true);
+	}
+};
+
+
+function resizeend() {
+    if (new Date() - rtime < delta) {
+
+        setTimeout(resizeend, delta);
+
+    } else {
+
+        timeout = false;
+
+        checkDevice();
+        
+        try {
+			for (var i in window.pageResize) {
+				window.pageResize[i]();
+			}
+		}
+		catch(e) {}
+
+    }               
+}; */
+
+
+// ON WINDOW SCROLL, EXECUTE FUNCTIONS
+if (!Array.isArray(window.pageScroll)) {
+    window.pageScroll = [];
+}
+function windowScrollFn(windowScroll) {
+    var windowScroll = $(window).scrollTop();
+
+    try {
+        for (var i in window.pageScroll) {
+            window.pageScroll[i](windowScroll);
+        }
+    }
+    catch(e) {}
 };

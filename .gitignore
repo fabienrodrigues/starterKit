@@ -1,2 +1,8 @@
 # Dependency directories
 node_modules/
+_html/medias/components/images/favicons/*
+_html/medias/components/scripts/min
+_html/medias/components/styles/css
+_html/medias/pages/scripts/min
+_html/medias/pages/styles/css
+_html/medias/vendor

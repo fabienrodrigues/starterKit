@@ -1,10 +1,12 @@
 
 // --- MENU ---
+var isMenuOpen = false;
+
 // SWITCH MENU MOBILE
 var switchMenu = function () {
-	if ($('#header').hasClass('open')) {
+	if (hasClass('#header', 'open')) {
 		
-		closeMenu(false);
+		closeMenu();
 
 	} else {
 
@@ -17,23 +19,26 @@ var switchMenu = function () {
 
 
 var openMenu = function () {
-	$('.navbar_toggle, #container_menu').addClass('open');
+	if(!isMenuOpen) {
+		document.getElementById('header').classList.add('open');
 
-	setTimeout(function() {
-		if(window.checkDevice() != 'isMobile') $('#header .filter').fadeIn(250);
+		setTimeout(function() {
+			$('html,body').css('overflow-y','hidden');
 
-		$('html,body').css('overflow-y','hidden');
+			$('#header .filter').on('touchmove',function(e) {
+				e.preventDefault();
+			});
 
-		$('#header .filter').on('touchmove',function(e) {
-		  e.preventDefault();
-		});
-	}, 250);
+			isMenuOpen = true;
+		}, 250);
+	}
 };
 
 
 var closeMenu = function () {
-	$('#header .filter').hide();
-	$('.navbar_toggle, #container_menu').removeClass('open');
+	document.getElementById('header').classList.remove('open');
+
+	isMenuOpen = false;
 
 	$('html,body').css({'overflow-y': 'auto'});
 };
