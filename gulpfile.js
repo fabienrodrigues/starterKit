@@ -18,6 +18,7 @@ var minimist     = require('minimist');
 var gulpif       = require('gulp-if');
 var stripDebug   = require('gulp-strip-debug');
 var favicons     = require("favicons").stream;
+var env          = require('gulp-environment');
 var path = null;
 
 /*
@@ -26,12 +27,6 @@ var path = null;
 |--------------------------------------------------------------------------
 */
 
-var knownOptions = {
-    string: 'env',
-    default: { env: process.env.NODE_ENV || 'production' }
-};
-
-var options = minimist(process.argv.slice(2), knownOptions);
 
 var path = './_html/';
 
@@ -53,15 +48,14 @@ function swallowError(error) {
  */
 gulp.task('compress-js', function()
 {
-    console.log('path = ', path, options.env);
+    console.log('path = ', path);
 
     // Components
     gulp.src(path + '/medias/components/scripts/main.js')
     .pipe(include()).on('error', console.log)
-    .pipe(gulpif(options.env === 'production', stripDebug()))
-    .pipe(gulpif(options.env !== 'production', sourcemaps.init()))
+    .pipe(env.if.production(stripDebug()).else(sourcemaps.init()))
     .pipe(uglify({output : {comments: 'some'}, compress: { hoist_funs: false }}).on('error', swallowError))
-    .pipe(gulpif(options.env !== 'production', sourcemaps.write()))
+    .pipe(env.if.not.production(sourcemaps.write()))
     .pipe(gulp.dest(path + '/medias/components/scripts/min/'));
 
     // Pages
@@ -70,11 +64,10 @@ gulp.task('compress-js', function()
         '!' + path + '/medias/pages/scripts/min/**/*.js',
     ])
     .pipe(include()).on('error', console.log)
-    .pipe(gulpif(options.env === 'production', stripDebug()))
-    .pipe(gulpif(options.env !== 'production', sourcemaps.init()))
+    .pipe(env.if.production(stripDebug()).else(sourcemaps.init()))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify({output : {comments: 'some'}, compress: { hoist_funs: false }}).on('error', swallowError))
-    .pipe(gulpif(options.env !== 'production', sourcemaps.write()))
+    .pipe(env.if.not.production(sourcemaps.write()))
     .pipe(gulp.dest(path + '/medias/pages/scripts/min/'));
 });
 
@@ -86,19 +79,19 @@ gulp.task('compress-css', function()
 {
     // Components
     gulp.src([path + '/medias/components/styles/scss/styles.scss'])
-    .pipe(gulpif(options.env !== 'production', sourcemaps.init()))
+    .pipe(env.if.not.production(sourcemaps.init()))
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(autoprefixer('last 6 versions'))
-    .pipe(gulpif(options.env !== 'production', sourcemaps.write()))
+    .pipe(env.if.not.production(sourcemaps.write()))
     .pipe(gulp.dest(path + '/medias/components/styles/css/'));
 
     // Pages
     gulp.src([path + '/medias/pages/styles/scss/**/!(_)*.scss'])
-    .pipe(gulpif(options.env !== 'production', sourcemaps.init()))
+    .pipe(env.if.not.production(sourcemaps.init()))
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(autoprefixer('last 6 versions'))
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulpif(options.env !== 'production', sourcemaps.write()))
+    .pipe(env.if.not.production(sourcemaps.write()))
     .pipe(gulp.dest(path + '/medias/pages/styles/css/'));
 });
 
@@ -123,7 +116,7 @@ gulp.task('hint', function()
 
 /**
  * Watch
- * gulp watch --env --developement // for dev
+ * gulp watch --env=development // for dev
  * gulp watch // for prod
  */
 gulp.task('watch', function ()
@@ -174,7 +167,7 @@ gulp.task('sprite', function ()
 
 
 /**
- * FAVICONS
+ * GENERATE FAVICONS
  */
 gulp.task("favicons", function () {
     return gulp.src("./favicon.png").pipe(favicons({
