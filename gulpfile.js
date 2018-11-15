@@ -10,12 +10,9 @@ var jshint       = require('gulp-jshint');
 var autoprefixer = require('gulp-autoprefixer');
 var rename       = require('gulp-rename');
 var uglify       = require('gulp-uglify');
-var concat       = require('gulp-concat');
 var svgSprite    = require('gulp-svg-sprite');
 var sourcemaps   = require('gulp-sourcemaps');
 var include      = require("gulp-include");
-var minimist     = require('minimist');
-var gulpif       = require('gulp-if');
 var stripDebug   = require('gulp-strip-debug');
 var favicons     = require("favicons").stream;
 var env          = require('gulp-environment');
@@ -32,7 +29,6 @@ var path = './_html/';
 
 
 function swallowError(error) {
-    // If you want details of the error in the console
     console.log(error.toString());
     this.emit('end');
 };
@@ -42,6 +38,12 @@ function swallowError(error) {
 | TASKS
 |--------------------------------------------------------------------------
 */
+
+/*
+gulp --env=development // for dev
+gulp // for prod
+*/
+
 
 /**
  * Compress JS
